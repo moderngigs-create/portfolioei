@@ -3,6 +3,36 @@
   root.classList.add('js');
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---- robust anchor scrolling ----
+     CSS scroll-behavior is left "auto" on purpose: the browser's automatic jump-to-hash
+     on initial load can get interrupted by late layout shifts (web fonts, lazy images)
+     when scroll-behavior is "smooth", leaving the page stuck near the top. Instead we:
+     1) let the native initial jump be instant (reliable), then correct it once more
+        after everything (incl. images) has finished loading;
+     2) handle in-page anchor clicks ourselves with an explicit smooth scrollIntoView,
+        which is safe because by click time the layout has already settled. */
+  function scrollToHash(smooth){
+    if(!location.hash || location.hash.length<2) return;
+    var target=null;
+    try{ target=document.querySelector(location.hash); }catch(e){}
+    if(!target) return;
+    target.scrollIntoView({behavior: smooth?'smooth':'auto', block:'start'});
+  }
+  addEventListener('load', function(){ scrollToHash(false); });
+
+  document.addEventListener('click', function(e){
+    var a=e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id=a.getAttribute('href');
+    if(!id || id.length<2) return;
+    var target=null;
+    try{ target=document.querySelector(id); }catch(err){}
+    if(!target) return;
+    e.preventDefault();
+    target.scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'});
+    if(history.pushState) history.pushState(null,'',id);
+  });
+
   /* ---- theme ---- */
   var KEY='ei-theme', saved=null;
   try{saved=localStorage.getItem(KEY)}catch(e){}

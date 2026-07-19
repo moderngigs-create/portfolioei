@@ -18,7 +18,10 @@ html[data-theme="dark"]{
   --shadow:0 20px 46px -22px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+/* scroll-behavior stays "auto": smooth is handled selectively via JS (app.js) so that
+   in-page nav clicks animate smoothly, while the initial jump to a URL hash on load
+   is instant and unaffected by async layout shifts (web fonts / lazy images) */
+html{scroll-behavior:auto}
 
 /* ---- accessibility: focus + skip-link ---- */
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
@@ -111,9 +114,56 @@ body.menu-open .menu-overlay{opacity:1;visibility:visible}
 .hero{padding-top:72px;padding-bottom:64px}
 .hero-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:center}
 .hero .eyebrow{margin-bottom:22px}
-.hero h1{font-size:clamp(40px,6.4vw,74px);margin-bottom:24px}
-.hero h1 .hl{font-style:italic}
+.hero .eyebrow.pill{
+  border:1px solid var(--line-strong); border-radius:999px; padding:9px 18px;
+  background:var(--card); gap:0;
+}
+.hero h1{
+  font-family:var(--sans); font-weight:800; letter-spacing:-.02em;
+  font-size:clamp(38px,6vw,68px); line-height:1.12; margin-bottom:24px;
+}
+.hero h1 .hl{
+  font-style:normal; background:var(--accent-soft); border-radius:8px;
+  padding:.02em .18em; box-decoration-break:clone; -webkit-box-decoration-break:clone;
+}
 .hero .lede{font-size:19px;color:var(--muted);max-width:560px;margin-bottom:32px}
+
+/* clients strip (под hero) */
+.clients-strip{
+  display:flex; flex-wrap:wrap; align-items:center; gap:14px 32px;
+  margin-top:40px; padding-top:28px; border-top:1px solid var(--line);
+}
+.clients-strip .label{
+  font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); white-space:nowrap;
+}
+.clients-strip .clients-list{ display:flex; flex-wrap:wrap; gap:10px 30px; }
+.clients-strip .clients-list span{
+  font-family:var(--display); font-size:16px; color:var(--ink); opacity:.82;
+}
+@media(max-width:640px){ .clients-strip{ flex-direction:column; align-items:flex-start; gap:12px; } }
+
+/* growth timeline (experience overview) */
+.timeline{
+  position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
+  margin-bottom:56px;
+}
+.timeline::before{
+  content:""; position:absolute; top:11px; left:0; right:0; height:1px; background:var(--line-strong);
+}
+.timeline-item{ position:relative; padding-top:44px; }
+.timeline-item::before{
+  content:""; position:absolute; top:0; left:0; width:24px; height:24px; border-radius:50%;
+  border:2px solid var(--accent); background:var(--paper);
+}
+.timeline-year{ font-size:14px; font-weight:700; color:var(--accent); margin-bottom:8px; }
+.timeline-item h4{ font-family:var(--display); font-weight:500; font-size:19px; margin-bottom:6px; }
+.timeline-item p{ font-size:14px; color:var(--muted); line-height:1.5; }
+@media(max-width:760px){
+  .timeline{ grid-template-columns:1fr 1fr; row-gap:36px; }
+  .timeline::before{ display:none; }
+}
+@media(max-width:480px){ .timeline{ grid-template-columns:1fr; } }
 .cta-row{display:flex;gap:14px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;
   font-weight:600;font-size:15px;border:1px solid var(--ink);transition:.2s;cursor:pointer}
