@@ -158,7 +158,7 @@
     }
     function resetZoom(){scale=1;panX=0;panY=0;lbImg.style.transition='';renderZoom();}
 
-    function show(){var im=gal[gi]; lbImg.src=im.src; var fig=im.closest('figure'); var fc=fig?fig.querySelector('figcaption'):null;
+    function show(){var im=gal[gi]; lbImg.src=im.dataset.full||im.src; var fig=im.closest('figure'); var fc=fig?fig.querySelector('figcaption'):null;
       lbCap.textContent=fc?fc.textContent:(im.alt||''); lbCount.textContent=(gi+1)+' / '+gal.length; resetZoom();}
     function open(img){var scope=img.closest('.case-main')||img.closest('section')||document;
       gal=[].slice.call(scope.querySelectorAll('.frame img')); gi=gal.indexOf(img); if(gi<0){gal=[img];gi=0;}
