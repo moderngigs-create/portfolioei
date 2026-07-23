@@ -210,13 +210,10 @@ body.menu-open .menu-overlay{opacity:1;visibility:visible}
 .case-poster.tone-mg{background:var(--case-mg)}
 .case-index{position:absolute;top:16px;left:18px;font-family:var(--display);font-size:13px;
   letter-spacing:.12em;color:#F4EEE4;z-index:3}
-.collage{position:relative;width:100%;height:100%}
-.collage img{position:absolute;width:58%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;
-  box-shadow:0 18px 40px -18px rgba(0,0,0,.5);border:1px solid rgba(244,238,228,.3);transition:transform .35s ease}
-.collage img.c1{left:1%;top:22%;transform:rotate(-5deg);z-index:2}
-.collage img.c2{right:0;top:2%;transform:rotate(4deg);z-index:1;opacity:.97}
-.case-card:hover .collage img.c1{transform:rotate(-8deg) translateY(-4px)}
-.case-card:hover .collage img.c2{transform:rotate(7deg) translateY(-4px)}
+.collage{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.collage img{max-width:86%;max-height:86%;width:auto;height:auto;object-fit:contain;border-radius:10px;
+  box-shadow:0 18px 40px -18px rgba(0,0,0,.5);border:1px solid rgba(244,238,228,.3);transition:transform .35s ease;display:block}
+.case-card:hover .collage img{transform:scale(1.045)}
 .case-body{padding:26px;display:flex;flex-direction:column;gap:10px;flex:1}
 .case-body .co{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
 .tags{display:flex;gap:8px;flex-wrap:wrap}
@@ -275,7 +272,8 @@ footer.site{border-top:1px solid var(--line);padding:40px 0;background:var(--sur
 .case-hero h1{font-size:clamp(34px,5.6vw,64px);max-width:900px;margin-bottom:22px}
 .case-hero .sub{color:var(--muted);font-size:19px;max-width:680px}
 .case-cover{margin:44px 0 8px}
-.case-cover .frame{border-radius:var(--radius)}
+.case-cover .frame{border-radius:var(--radius);aspect-ratio:16/9;background:var(--surface);display:flex;align-items:center;justify-content:center}
+.case-cover .frame img{width:100%;height:100%;object-fit:contain}
 
 /* meta + toc */
 .case-meta{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:40px 0 8px}
@@ -344,6 +342,12 @@ figcaption{margin-top:10px;font-size:13px;color:var(--muted);letter-spacing:.02e
 .shot-row .frame{aspect-ratio:4/3;background:var(--surface);display:flex;align-items:center;justify-content:center}
 .shot-row .frame img{width:100%;height:100%;object-fit:contain}
 @media(max-width:680px){.shot-row{grid-template-columns:1fr}.shot-row .frame{aspect-ratio:16/11}}
+/* standalone single-shot figures (incl. .artifact): same letterboxing idea as shot-row,
+   so a tall phone crop and a wide dashboard export both sit in the same shaped frame
+   instead of one towering over the page and the other looking tiny */
+.case-section>figure .frame{aspect-ratio:16/9;background:var(--surface);display:flex;align-items:center;justify-content:center}
+.case-section>figure .frame img{width:100%;height:100%;object-fit:contain}
+@media(max-width:680px){.case-section>figure .frame{aspect-ratio:4/3}}
 
 /* next-case nav */
 .case-nav{border-top:1px solid var(--line);padding:40px 0 20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
