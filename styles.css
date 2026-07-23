@@ -112,8 +112,10 @@ body.menu-open .menu-overlay{opacity:1;visibility:visible}
 .cases-grid.is-empty + .no-results{display:block}
 
 /* hero (landing) */
-.hero{padding-top:72px;padding-bottom:64px}
+.hero{padding-top:72px;padding-bottom:40px}
 .hero-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:center}
+/* wider header band: nav + hero span more of the viewport than the 1120px content sections below */
+header.nav .wrap,.hero.wrap{max-width:1320px}
 .hero .eyebrow{margin-bottom:22px}
 .hero .eyebrow.pill{
   border:1px solid var(--line-strong); border-radius:999px; padding:9px 18px;
@@ -409,7 +411,7 @@ figcaption{margin-top:10px;font-size:13px;color:var(--muted);letter-spacing:.02e
 
 /* other work */
 .other-list{border-top:1px solid var(--line)}
-.other-item{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line)}
+.other-item{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:28px 0;border-bottom:1px solid var(--line)}
 .other-item h3{font-size:19px;margin-bottom:4px}
 .other-item p{color:var(--muted);font-size:14.5px;max-width:640px}
 .other-item .kind{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
